@@ -1,59 +1,65 @@
-# Home Assistant Operating System
-
-Home Assistant Operating System (formerly HassOS) is a Linux based operating system optimized to host [Home Assistant](https://www.home-assistant.io) and its [Add-ons](https://www.home-assistant.io/addons/).
-
-Home Assistant Operating System uses Docker as its container engine. By default it deploys the Home Assistant Supervisor as a container. Home Assistant Supervisor in turn uses the Docker container engine to control Home Assistant Core and Add-Ons in separate containers. Home Assistant Operating System is **not** based on a regular Linux distribution like Ubuntu. It is built using [Buildroot](https://buildroot.org/) and it is optimized to run Home Assistant. It targets single board compute (SBC) devices like the Raspberry Pi or ODROID but also supports x86-64 systems with UEFI.
-
-## Features
-
-- Lightweight and memory-efficient
-- Minimized I/O
-- Over The Air (OTA) updates
-- Offline updates
-- Modular using Docker container engine
-
-## Supported hardware
-
-- Nabu Casa
-- Raspberry Pi
-- Hardkernel ODROID
-- Asus Tinker Board
-- Generic x86-64 (e.g. Intel NUC)
-- Virtual appliances
-
-See the full list and specific models [here](./Documentation/boards/README.md)
-
-## Getting Started
-
-If you just want to use Home Assistant the official [getting started guide](https://www.home-assistant.io/getting-started/) and [installation instructions](https://www.home-assistant.io/hassio/installation/) take you through how to download Home Assistant Operating System and get it running on your machine.
-
-If you're interested in finding out more about Home Assistant Operating System and how it works read on...
-
-## Development
-
-If you don't have experience with embedded systems, Buildroot or the build process for Linux distributions it is recommended to read up on these topics first (e.g. [Bootlin](https://bootlin.com/docs/) has excellent resources).
-
-The Home Assistant Operating System documentation can be found on the [Home Assistant Developer Docs website](https://developers.home-assistant.io/docs/operating-system).
-
-### Components
-
-- **Bootloader:**
-  - [Barebox](https://barebox.org/) for devices that support UEFI
-  - [U-Boot](https://www.denx.de/wiki/U-Boot) for devices that don't support UEFI
-- **Operating System:**
-  - [Buildroot](https://buildroot.org/) LTS Linux
-- **File Systems:**
-  - [SquashFS](https://www.kernel.org/doc/Documentation/filesystems/squashfs.txt) for read-only file systems (using LZ4 compression)
-  - [ZRAM](https://www.kernel.org/doc/Documentation/blockdev/zram.txt) for `/tmp`, `/var` and swap (using LZ4 compression)
-- **Container Platform:**
-  - [Docker Engine](https://docs.docker.com/engine/) for running Home Assistant components in containers
-- **Updates:**
-  - [RAUC](https://rauc.io/) for Over The Air (OTA) and USB updates
-- **Security:**
-  - [AppArmor](https://apparmor.net/) Linux kernel security module
-
-### Development builds
-
-The Development build GitHub Action Workflow is a manually triggered workflow
-which creates Home Assistant OS development builds. The development builds are
-available at [https://os-artifacts.home-assistant.io/index.html](https://os-artifacts.home-assistant.io/index.html).
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">家庭助理操作系统</font></font></h1><a id="user-content-home-assistant-operating-system" class="anchor" aria-label="永久链接：家庭助理操作系统" href="#home-assistant-operating-system"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home Assistant 操作系统（以前称为 HassOS）是一个基于 Linux 的操作系统，经过优化，可以托管</font></font><a href="https://www.home-assistant.io" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home Assistant</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">及其</font></font><a href="https://www.home-assistant.io/addons/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">附加组件</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home Assistant操作系统使用Docker作为其容器引擎。默认情况下，它将 Home Assistant Supervisor 部署为容器。 Home Assistant Supervisor 反过来使用 Docker 容器引擎来控制单独容器中的 Home Assistant 核心和附加组件。 Home Assistant 操作系统并不</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">基于</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ubuntu 等常规 Linux 发行版。它是使用</font></font><a href="https://buildroot.org/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Buildroot</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建的，并针对运行 Home Assistant 进行了优化。它针对的是 Raspberry Pi 或 ODROID 等单板计算 (SBC) 设备，但也支持具有 UEFI 的 x86-64 系统。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">特征</font></font></h2><a id="user-content-features" class="anchor" aria-label="永久链接：特点" href="#features"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">轻量级且内存高效</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最小化 I/O</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">无线 (OTA) 更新</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">离线更新</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用Docker容器引擎进行模块化</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持的硬件</font></font></h2><a id="user-content-supported-hardware" class="anchor" aria-label="永久链接：支持的硬件" href="#supported-hardware"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">纳布卡萨</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">树莓派</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">硬核 ODROID</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">华硕修补板</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">通用 x86-64（例如英特尔 NUC）</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">虚拟设备</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><a href="/home-assistant/operating-system/blob/dev/Documentation/boards/README.md"><font style="vertical-align: inherit;">请在此处</font></a><font style="vertical-align: inherit;">查看完整列表和具体型号</font></font><a href="/home-assistant/operating-system/blob/dev/Documentation/boards/README.md"><font style="vertical-align: inherit;"></font></a></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">入门</font></font></h2><a id="user-content-getting-started" class="anchor" aria-label="永久链接：开始使用" href="#getting-started"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您只想使用 Home Assistant，官方</font></font><a href="https://www.home-assistant.io/getting-started/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">入门指南</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><a href="https://www.home-assistant.io/hassio/installation/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装说明</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将引导您了解如何下载 Home Assistant 操作系统并使其在您的计算机上运行。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您有兴趣了解有关家庭助理操作系统及其工作原理的更多信息，请继续阅读...</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发展</font></font></h2><a id="user-content-development" class="anchor" aria-label="永久链接： 发展" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您没有嵌入式系统、Buildroot 或 Linux 发行版的构建过程方面的经验，建议您首先阅读这些主题（例如</font></font><a href="https://bootlin.com/docs/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bootlin</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有优秀的资源）。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home Assistant 操作系统文档可以在</font></font><a href="https://developers.home-assistant.io/docs/operating-system" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home Assistant 开发人员文档网站</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上找到。</font></font></p>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">成分</font></font></h3><a id="user-content-components" class="anchor" aria-label="永久链接：组件" href="#components"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">引导加载程序：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://barebox.org/" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">适用于支持 UEFI 的设备的</font><a href="https://barebox.org/" rel="nofollow"><font style="vertical-align: inherit;">Barebox</font></a></font></li>
+<li><a href="https://www.denx.de/wiki/U-Boot" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">适用于不支持 UEFI 的设备的</font><a href="https://www.denx.de/wiki/U-Boot" rel="nofollow"><font style="vertical-align: inherit;">U-Boot</font></a></font></li>
+</ul>
+</li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">操作系统：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://buildroot.org/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Buildroot</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> LTS Linux</font></font></li>
+</ul>
+</li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件系统：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://www.kernel.org/doc/Documentation/filesystems/squashfs.txt" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于只读文件系统的</font><a href="https://www.kernel.org/doc/Documentation/filesystems/squashfs.txt" rel="nofollow"><font style="vertical-align: inherit;">SquashFS （使用 LZ4 压缩）</font></a></font></li>
+<li><a href="https://www.kernel.org/doc/Documentation/blockdev/zram.txt" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于</font></font><code>/tmp</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">、和交换的</font><a href="https://www.kernel.org/doc/Documentation/blockdev/zram.txt" rel="nofollow"><font style="vertical-align: inherit;">ZRAM</font></a></font><code>/var</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（使用 LZ4 压缩）</font></font></li>
+</ul>
+</li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">容器平台：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://docs.docker.com/engine/" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于在容器中运行 Home Assistant 组件的</font><a href="https://docs.docker.com/engine/" rel="nofollow"><font style="vertical-align: inherit;">Docker 引擎</font></a></font></li>
+</ul>
+</li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更新：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://rauc.io/" rel="nofollow"><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于无线 (OTA) 和 USB 更新的</font><a href="https://rauc.io/" rel="nofollow"><font style="vertical-align: inherit;">RAUC</font></a></font></li>
+</ul>
+</li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安全：</font></font></strong>
+<ul dir="auto">
+<li><a href="https://apparmor.net/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">AppArmor</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Linux 内核安全模块</font></font></li>
+</ul>
+</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开发构建</font></font></h3><a id="user-content-development-builds" class="anchor" aria-label="永久链接：开发构建" href="#development-builds"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开发构建 GitHub Action 工作流程是一个手动触发的工作流程，用于创建 Home Assistant OS 开发构建。开发版本可在</font></font><a href="https://os-artifacts.home-assistant.io/index.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://os-artifacts.home-assistant.io/index.html</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获取。</font></font></p>
+</article></div>
